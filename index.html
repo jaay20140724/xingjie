@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星界生存 - MC多服务器状态监控</title>
+    <title>星界生存小游戏服务器监控</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* 强制使用支持中文的无衬线字体，解决乱码 */
-            font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -66,15 +65,13 @@
             gap: 12px;
         }
 
-        /* 适配你 1004×916 像素LOGO：等比缩小、像素清晰 */
         .logo {
             max-width: 120px;
-            max-height: 110px;
+            max-height: 120px;
             width: auto;
             height: auto;
             border-radius: 8px;
             object-fit: contain;
-            image-rendering: crisp-edges;
         }
 
         .title {
@@ -98,11 +95,6 @@
             padding: 25px;
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            transition: 0.3s;
-        }
-
-        .server-card:hover {
-            transform: translateY(-3px);
         }
 
         .server-name {
@@ -145,7 +137,6 @@
         .info-label {
             font-size: 14px;
             color: var(--text-gray);
-            margin-bottom: 5px;
         }
 
         .info-value {
@@ -158,8 +149,6 @@
             padding: 15px;
             border-radius: 8px;
             margin-top: 20px;
-            line-height: 1.5;
-            white-space: pre-wrap;
         }
 
         .refresh-btn {
@@ -172,11 +161,6 @@
             border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .refresh-btn:hover {
-            background: var(--btn-hover);
         }
     </style>
 </head>
@@ -184,9 +168,8 @@
     <div class="container">
         <div class="header">
             <div class="logo-box">
-                <!-- 你的LOGO，已配置好 -->
-                <img class="logo" id="siteLogo" src="http://120.48.2.177:49221/logo.png" alt="星界生存LOGO">
-                <h1 class="title">星界生存 - 服务器监控</h1>
+                <img class="logo" src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/3374884afd0b4dc2b9063e0fc0ad50c7.png" alt="LOGO">
+                <h1 class="title">星界生存小游戏服务器监控</h1>
             </div>
             <button class="theme-btn" id="themeToggle">
                 <i class="fas fa-moon"></i> 切换亮色模式
@@ -201,59 +184,37 @@
     </div>
 
     <script>
-        // 你的5个服务器
         const serverList = [
-            { name: "大厅", ip: "127.0.0.1", port: 25565 },
-            { name: "生存服", ip: "127.0.0.1", port: 25566 },
+            { name: "大厅", ip: "play.simpfun.cn", port: 21699 },
+            { name: "生存服", ip: "x3.minekuai.cn", port: 20033 },
             { name: "起床服", ip: "127.0.0.1", port: 25567 },
             { name: "幸运支柱服", ip: "127.0.0.1", port: 25568 },
             { name: "空岛战争-幸运支柱版", ip: "127.0.0.1", port: 25569 }
         ];
-
-        const LOGO_URL = "http://120.48.2.177:49221/logo.png";
-
-        document.getElementById("siteLogo").src = LOGO_URL;
 
         const themeToggle = document.getElementById("themeToggle");
         let isDark = true;
         themeToggle.addEventListener("click", () => {
             isDark = !isDark;
             document.body.classList.toggle("light-mode");
-            themeToggle.innerHTML = isDark
-                ? '<i class="fas fa-moon"></i> 切换亮色模式'
-                : '<i class="fas fa-sun"></i> 切换暗黑模式';
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-moon"></i> 切换亮色模式' : '<i class="fas fa-sun"></i> 切换暗黑模式';
         });
 
         function renderCard(server, index) {
             return `
-                <div class="server-card" id="card${index}">
+                <div class="server-card">
                     <div class="server-name">${server.name}</div>
                     <div class="status">
                         <div class="status-dot" id="dot${index}"></div>
                         <span id="status${index}">加载中...</span>
                     </div>
                     <div class="info-grid">
-                        <div class="info-item">
-                            <div class="info-label">在线人数</div>
-                            <div class="info-value" id="online${index}">--</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">最大人数</div>
-                            <div class="info-value" id="max${index}">--</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">服务器版本</div>
-                            <div class="info-value" id="ver${index}">--</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">延迟</div>
-                            <div class="info-value" id="ping${index}">-- ms</div>
-                        </div>
+                        <div class="info-item"><div class="info-label">在线人数</div><div class="info-value" id="online${index}">--</div></div>
+                        <div class="info-item"><div class="info-label">最大人数</div><div class="info-value" id="max${index}">--</div></div>
+                        <div class="info-item"><div class="info-label">版本</div><div class="info-value" id="ver${index}">--</div></div>
+                        <div class="info-item"><div class="info-label">延迟</div><div class="info-value" id="ping${index}">--</div></div>
                     </div>
-                    <div class="motd">
-                        <div class="info-label">服务器标语 MOTD</div>
-                        <div id="motd${index}">加载中...</div>
-                    </div>
+                    <div class="motd"><div class="info-label">MOTD</div><div id="motd${index}">加载中...</div></div>
                 </div>
             `;
         }
@@ -261,51 +222,28 @@
         async function checkAllServer() {
             const container = document.getElementById("serverList");
             container.innerHTML = "";
-            serverList.forEach((item, idx) => {
-                container.innerHTML += renderCard(item, idx);
-            });
+            serverList.forEach((item, idx) => { container.innerHTML += renderCard(item, idx); });
 
             for (let i = 0; i < serverList.length; i++) {
                 const s = serverList[i];
                 try {
                     const res = await fetch(`https://api.mcsrvstat.us/2/${s.ip}:${s.port}`);
                     const data = await res.json();
-                    const dot = document.getElementById(`dot${i}`);
-                    const status = document.getElementById(`status${i}`);
-                    const online = document.getElementById(`online${i}`);
-                    const max = document.getElementById(`max${i}`);
-                    const ver = document.getElementById(`ver${i}`);
-                    const ping = document.getElementById(`ping${i}`);
-                    const motd = document.getElementById(`motd${i}`);
-
                     if (data.online) {
-                        dot.className = "status-dot dot-online";
-                        status.className = "status-online";
-                        status.innerText = "在线";
-                        online.innerText = data.players.online;
-                        max.innerText = data.players.max;
-                        ver.innerText = data.version || "未知";
-                        ping.innerText = Math.round(data.ping) + " ms";
-                        motd.innerText = data.motd.clean ? data.motd.clean.join(" ") : "无标语";
+                        document.getElementById(`dot${i}`).className = "status-dot dot-online";
+                        document.getElementById(`status${i}`).className = "status-online";
+                        document.getElementById(`status${i}`).innerText = "在线";
+                        document.getElementById(`online${i}`).innerText = data.players.online;
+                        document.getElementById(`max${i}`).innerText = data.players.max;
+                        document.getElementById(`ver${i}`).innerText = data.version;
+                        document.getElementById(`ping${i}`).innerText = Math.round(data.ping) + "ms";
+                        document.getElementById(`motd${i}`).innerText = data.motd.clean?.join(" ") || "无标语";
                     } else {
-                        dot.className = "status-dot dot-offline";
-                        status.className = "status-offline";
-                        status.innerText = "离线";
-                        online.innerText = "0";
-                        max.innerText = "0";
-                        ver.innerText = "离线";
-                        ping.innerText = "-- ms";
-                        motd.innerText = "服务器未开启";
+                        document.getElementById(`dot${i}`).className = "status-dot dot-offline";
+                        document.getElementById(`status${i}`).className = "status-offline";
+                        document.getElementById(`status${i}`).innerText = "离线";
                     }
-                } catch (e) {
-                    const dot = document.getElementById(`dot${i}`);
-                    const status = document.getElementById(`status${i}`);
-                    const motd = document.getElementById(`motd${i}`);
-                    dot.className = "status-dot dot-offline";
-                    status.className = "status-offline";
-                    status.innerText = "查询失败";
-                    motd.innerText = "网络或IP地址错误";
-                }
+                } catch(e) {}
             }
         }
 
