@@ -3,251 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星界生存小游戏服务器监控</title>
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>星界生存小游戏服务器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors:{
+                        main1:'#6320ee', main2:'#2563eb', purpleBlue:'#9370FF',
+                        online:'#22c55e', offline:'#ef4444'
+                    },
+                    fontFamily:{'sans':['Inter','system-ui']}
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
-            transition: background-color 0.3s, color 0.3s;
+        *{scroll-behavior: smooth;}
+        body{
+            background: linear-gradient(135deg, #6320ee, #8ab4f8, #2563eb, #6320ee);
+            background-size: 400% 400%;
+            min-height:100vh;
+            animation: gradientFlow 12s ease infinite;
         }
-
-        :root {
-            --bg-main: #1a1c23;
-            --bg-card: #252830;
-            --bg-item: #2d3039;
-            --text-color: #ffffff;
-            --text-gray: #aaa;
-            --color-online: #5cb85c;
-            --color-offline: #d9534f;
-            --color-name: #81c7ff;
-            --btn-bg: #5cb85c;
-            --btn-hover: #4cae4c;
+        @keyframes gradientFlow {
+            0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}
         }
-
-        .light-mode {
-            --bg-main: #f5f7fa;
-            --bg-card: #ffffff;
-            --bg-item: #eef1f5;
-            --text-color: #222222;
-            --text-gray: #666;
-            --color-name: #2b7cd3;
-            --btn-bg: #2b7cd3;
-            --btn-hover: #2269b9;
+        .glass{
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(20px);
+            border:1px solid rgba(147,112,255,0.15);
+            box-shadow:0 8px 32px rgba(147,112,255,0.08);
         }
-
-        body {
-            background: var(--bg-main);
-            color: var(--text-color);
-            min-height: 100vh;
-            padding: 20px;
+        .hover-float{transition:0.3s;}
+        .hover-float:hover{transform:translateY(-6px); box-shadow:0 15px 35px rgba(147,112,255,0.2);}
+        .gradient-text{color:#9370FF; font-weight:700;}
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo {
-            max-width: 120px;
-            max-height: 120px;
-            width: auto;
-            height: auto;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-
-        .title {
-            font-size: 28px;
-            color: var(--color-online);
-        }
-
-        .theme-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            background: var(--bg-item);
-            color: var(--text-color);
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .server-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-
-        .server-name {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--color-name);
-        }
-
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .status-online {color: var(--color-online); font-weight: bold;}
-        .status-offline {color: var(--color-offline); font-weight: bold;}
-
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        .dot-online {background: var(--color-online);}
-        .dot-offline {background: var(--color-offline);}
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .info-item {
-            background: var(--bg-item);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .info-label {
-            font-size: 14px;
-            color: var(--text-gray);
-        }
-
-        .info-value {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .motd {
-            background: var(--bg-item);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .refresh-btn {
-            display: block;
-            margin: 30px auto;
-            padding: 12px 30px;
-            background: var(--btn-bg);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="logo-box">
-                <img class="logo" src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/3374884afd0b4dc2b9063e0fc0ad50c7.png" alt="LOGO">
-                <h1 class="title">星界生存小游戏服务器监控</h1>
-            </div>
-            <button class="theme-btn" id="themeToggle">
-                <i class="fas fa-moon"></i> 切换亮色模式
-            </button>
+<body class="text-white font-sans">
+
+<!-- 导航 -->
+<nav class="glass fixed w-full top-0 z-50 py-3 px-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <!-- Logo 已添加 -->
+        <div class="flex items-center gap-2">
+            <img src="https://release-assets.githubusercontent.com/github-production-release-asset/1253988918/2701311c-23ef-4b0d-8911-3675e9aebd4d?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-06-04T13%3A08%3A40Z&rscd=attachment%3B+filename%3Dlogo2.png&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-06-04T12%3A08%3A33Z&ske=2026-06-04T13%3A08%3A40Z&sks=b&skv=2018-11-09&sig=TaK19mhlSq%2FFufxHkbO0sJ99RXymSD26e2VBgObhpG0%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4MDU3NTc0NCwibmJmIjoxNzgwNTc1NDQ0LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.eshLgZGDsoKy1XWSpQkg2yUTwtvhQoMUNaN3cYMGkYY&response-content-disposition=attachment%3B%20filename%3Dlogo2.png&response-content-type=application%2Foctet-stream" 
+                 alt="星界生存Logo" class="h-10 w-auto">
         </div>
-
-        <div id="serverList"></div>
-
-        <button class="refresh-btn" onclick="checkAllServer()">
-            <i class="fas fa-sync-alt"></i> 批量刷新状态
-        </button>
+        <div class="hidden md:flex gap-6">
+            <a href="#home">首页</a>
+            <a href="#servers">服务器状态</a>
+            <a href="#feedback">玩家反馈</a>
+        </div>
+        <a href="https://qm.qq.com/q/aON8Bbv4E8" target="_blank" class="glass px-4 py-2 rounded-full hover-float text-purpleBlue">加入QQ群</a>
     </div>
+</nav>
 
-    <script>
-        const serverList = [
-            { name: "大厅", ip: "play.simpfun.cn", port: 21699 },
-            { name: "生存服", ip: "x3.minekuai.cn", port: 20033 },
-            { name: "起床服", ip: "127.0.0.1", port: 25567 },
-            { name: "幸运支柱服", ip: "127.0.0.1", port: 25568 },
-            { name: "空岛战争-幸运支柱版", ip: "127.0.0.1", port: 25569 }
-        ];
+<!-- 首页 -->
+<section id="home" class="min-h-screen flex items-center px-6 pt-24 fade-in">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-5xl font-bold gradient-text" id="webTitle">星界生存小游戏服务器</h1>
+        <p class="mt-4 text-lg" id="webDesc">为好玩而开，稳定、流畅、公平的小游戏服务器</p>
+        <a href="#servers" class="mt-6 inline-block glass px-6 py-3 rounded-full hover-float">查看服务器状态</a>
+    </div>
+</section>
 
-        const themeToggle = document.getElementById("themeToggle");
-        let isDark = true;
-        themeToggle.addEventListener("click", () => {
-            isDark = !isDark;
-            document.body.classList.toggle("light-mode");
-            themeToggle.innerHTML = isDark ? '<i class="fas fa-moon"></i> 切换亮色模式' : '<i class="fas fa-sun"></i> 切换暗黑模式';
-        });
+<!-- 5个服务器状态（不显示IP） -->
+<section id="servers" class="py-20 px-6 fade-in">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold gradient-text text-center mb-10">服务器实时状态</h2>
+        <div class="grid md:grid-cols-3 gap-6" id="serverCards">
+            <div class="glass p-6 rounded-2xl hover-float fade-in">
+                <h3 class="text-xl font-bold" id="s1name">生存主服</h3>
+                <p class="mt-2 text-sm" id="s1player">在线人数：加载中...</p>
+                <p class="mt-3" id="s1status">检测中...</p>
+            </div>
+            <div class="glass p-6 rounded-2xl hover-float fade-in">
+                <h3 class="text-xl font-bold" id="s2name">小游戏服</h3>
+                <p class="mt-2 text-sm" id="s2player">在线人数：加载中...</p>
+                <p class="mt-3" id="s2status">检测中...</p>
+            </div>
+            <div class="glass p-6 rounded-2xl hover-float fade-in">
+                <h3 class="text-xl font-bold" id="s3name">创造服</h3>
+                <p class="mt-2 text-sm" id="s3player">在线人数：加载中...</p>
+                <p class="mt-3" id="s3status">检测中...</p>
+            </div>
+            <div class="glass p-6 rounded-2xl hover-float fade-in">
+                <h3 class="text-xl font-bold" id="s4name">空岛服</h3>
+                <p class="mt-2 text-sm" id="s4player">在线人数：加载中...</p>
+                <p class="mt-3" id="s4status">检测中...</p>
+            </div>
+            <div class="glass p-6 rounded-2xl hover-float fade-in">
+                <h3 class="text-xl font-bold" id="s5name">RPG副本服</h3>
+                <p class="mt-2 text-sm" id="s5player">在线人数：加载中...</p>
+                <p class="mt-3" id="s5status">检测中...</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-        function renderCard(server, index) {
-            return `
-                <div class="server-card">
-                    <div class="server-name">${server.name}</div>
-                    <div class="status">
-                        <div class="status-dot" id="dot${index}"></div>
-                        <span id="status${index}">加载中...</span>
-                    </div>
-                    <div class="info-grid">
-                        <div class="info-item"><div class="info-label">在线人数</div><div class="info-value" id="online${index}">--</div></div>
-                        <div class="info-item"><div class="info-label">最大人数</div><div class="info-value" id="max${index}">--</div></div>
-                        <div class="info-item"><div class="info-label">版本</div><div class="info-value" id="ver${index}">--</div></div>
-                        <div class="info-item"><div class="info-label">延迟</div><div class="info-value" id="ping${index}">--</div></div>
-                    </div>
-                    <div class="motd"><div class="info-label">MOTD</div><div id="motd${index}">加载中...</div></div>
-                </div>
-            `;
+<!-- 反馈 -->
+<section id="feedback" class="py-20 px-6 fade-in">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold gradient-text text-center mb-10 fade-in">玩家反馈</h2>
+        <div class="glass p-6 rounded-2xl fade-in">
+            <input id="email" class="w-full p-3 rounded bg-black/30 border border-purpleBlue/30 mb-3" placeholder="请输入QQ邮箱 (xxx@qq.com)">
+            <textarea id="content" class="w-full p-3 rounded bg-black/30 border border-purpleBlue/30 mb-3" rows="4" placeholder="请输入反馈内容（至少3个字）"></textarea>
+            <button onclick="sendFeedback()" class="w-full p-3 rounded-full bg-gradient-to-r from-main1 to-main2 hover-float">提交反馈</button>
+        </div>
+        <div class="mt-10" id="feedbackList"></div>
+    </div>
+</section>
+
+<!-- 底部 -->
+<footer class="py-8 glass text-center fade-in" id="footerClick">
+    <p class="text-gray-300">©2025 星界生存小游戏服务器 | 为好玩而开</p>
+</footer>
+
+<!-- 后台全屏 -->
+<div id="adminPanel" class="fixed inset-0 bg-black/95 z-50 hidden flex-col items-center justify-center p-6">
+    <div class="glass p-8 rounded-2xl w-full max-w-md">
+        <h2 class="text-2xl gradient-text mb-4">管理员登录</h2>
+        <input id="adminUser" class="w-full p-3 rounded bg-black/30 mb-3" placeholder="账号">
+        <input id="adminPwd" class="w-full p-3 rounded bg-black/30 mb-3" placeholder="密码" type="password">
+        <button onclick="adminLogin()" class="w-full p-3 rounded-full bg-gradient-to-r from-main1 to-main2 mb-6">登录</button>
+
+        <div id="adminContent" class="hidden">
+            <div id="superAdminArea">
+                <h3 class="mb-3 gradient-text">修改官网信息</h3>
+                <input id="newTitle" class="w-full p-2 mb-2 rounded bg-black/30" placeholder="官网标题">
+                <input id="newDesc" class="w-full p-2 mb-2 rounded bg-black/30" placeholder="官网简介">
+
+                <h3 class="mt-4 mb-2 gradient-text">服务器1</h3>
+                <input id="newS1name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS1ip" class="w-full p-2 mb-2 rounded bg-black/30">
+
+                <h3 class="mt-4 mb-2 gradient-text">服务器2</h3>
+                <input id="newS2name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS2ip" class="w-full p-2 mb-1 rounded bg-black/30">
+
+                <h3 class="mt-4 mb-2 gradient-text">服务器3</h3>
+                <input id="newS3name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS3ip" class="w-full p-2 mb-2 rounded bg-black/30">
+
+                <h3 class="mt-4 mb-2 gradient-text">服务器4</h3>
+                <input id="newS4name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS4ip" class="w-full p-2 mb-2 rounded bg-black/30">
+
+                <h3 class="mt-4 mb-2 gradient-text">服务器5</h3>
+                <input id="newS5name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS5ip" class="w-full p-2 mb-2 rounded bg-black/30">
+            </div>
+
+            <div id="normalAdminArea">
+                <h3 class="mb-3 gradient-text">修改服务器简介</h3>
+                <input id="newDescNormal" class="w-full p-3 rounded bg-black/30 mb-4" placeholder="官网简介">
+            </div>
+
+            <button onclick="saveAll()" class="w-full p-3 rounded-full bg-gradient-to-r from-main1 to-main2 mt-4">保存全部</button>
+            <button onclick="showFeedbackAdmin()" class="w-full p-3 mt-2 rounded-full glass">查看反馈</button>
+            <div id="adminFeedbackList" class="mt-4 max-h-60 overflow-y-auto"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 账号列表
+const admins = {
+    "Mgour145AWA": { pwd: "20140724", role: "super" },
+    "lhx145": { pwd: "bb070925", role: "normal" },
+    "huang1114514": { pwd: "huang1114514", role: "normal" }
+};
+
+let currentRole = "";
+
+// 本地数据
+function loadData(){
+    return JSON.parse(localStorage.getItem("serverData") || `{
+        "webTitle":"星界生存小游戏服务器",
+        "webDesc":"为好玩而开，稳定、流畅、公平的小游戏服务器",
+        "s1name":"生存主服","s1ip":"",
+        "s2name":"小游戏服","s2ip":"",
+        "s3name":"创造服","s3ip":"",
+        "s4name":"空岛服","s4ip":"",
+        "s5name":"RPG副本服","s5ip":"",
+        "feedback":[]
+    }`);
+}
+function saveData(d){localStorage.setItem("serverData",JSON.stringify(d));}
+
+// 渲染页面
+function render(){
+    let d=loadData();
+    document.getElementById("webTitle").innerText=d.webTitle;
+    document.getElementById("webDesc").innerText=d.webDesc;
+    document.getElementById("s1name").innerText=d.s1name;
+    document.getElementById("s2name").innerText=d.s2name;
+    document.getElementById("s3name").innerText=d.s3name;
+    document.getElementById("s4name").innerText=d.s4name;
+    document.getElementById("s5name").innerText=d.s5name;
+
+    let fbList=document.getElementById("feedbackList");
+    fbList.innerHTML="";
+    d.feedback.forEach(f=>{
+        let item=document.createElement("div");
+        item.className="glass p-4 rounded-xl mb-3 fade-in";
+        item.innerHTML=`<p class="text-purpleBlue">${f.email}</p><p class="text-white">${f.content}</p><p class="text-xs text-gray-400">${f.time}</p>`;
+        fbList.appendChild(item);
+    });
+}
+render();
+
+// 提交反馈
+function sendFeedback(){
+    let email=document.getElementById("email").value;
+    let content=document.getElementById("content").value;
+    if(!email.endsWith("@qq.com")){alert("请输入有效的QQ邮箱");return;}
+    if(content.length<3){alert("反馈内容至少3个字");return;}
+    let d=loadData();
+    d.feedback.unshift({email,content,time:new Date().toLocaleString()});
+    saveData(d);
+    render();
+    document.getElementById("email").value="";
+    document.getElementById("content").value="";
+    alert("反馈成功，等待管理员审核与修复");
+}
+
+// 实时检测服务器状态
+async function checkServer(ip,idStatus,idPlayer){
+    try{
+        if(!ip)return;
+        let res=await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+        let data=await res.json();
+        if(data.online){
+            document.getElementById(idStatus).innerHTML='<span class="text-online">✅ 在线中</span>';
+            document.getElementById(idPlayer).innerText=`在线人数：${data.players.online}/${data.players.max}`;
+        }else{
+            document.getElementById(idStatus).innerHTML='<span class="text-offline">❌ 离线</span>';
+            document.getElementById(idPlayer).innerText="在线人数：0/0";
         }
+    }catch(e){
+        document.getElementById(idStatus).innerHTML='<span class="text-offline">❌ 离线</span>';
+        document.getElementById(idPlayer).innerText="在线人数：0/0";
+    }
+}
 
-        async function checkAllServer() {
-            const container = document.getElementById("serverList");
-            container.innerHTML = "";
-            serverList.forEach((item, idx) => { container.innerHTML += renderCard(item, idx); });
+function refreshAll(){
+    let d=loadData();
+    checkServer(d.s1ip,"s1status","s1player");
+    checkServer(d.s2ip,"s2status","s2player");
+    checkServer(d.s3ip,"s3status","s3player");
+    checkServer(d.s4ip,"s4status","s4player");
+    checkServer(d.s5ip,"s5status","s5player");
+}
+refreshAll();
+setInterval(refreshAll,3000);
 
-            for (let i = 0; i < serverList.length; i++) {
-                const s = serverList[i];
-                try {
-                    const res = await fetch(`https://api.mcsrvstat.us/2/${s.ip}:${s.port}`);
-                    const data = await res.json();
-                    if (data.online) {
-                        document.getElementById(`dot${i}`).className = "status-dot dot-online";
-                        document.getElementById(`status${i}`).className = "status-online";
-                        document.getElementById(`status${i}`).innerText = "在线";
-                        document.getElementById(`online${i}`).innerText = data.players.online;
-                        document.getElementById(`max${i}`).innerText = data.players.max;
-                        document.getElementById(`ver${i}`).innerText = data.version;
-                        document.getElementById(`ping${i}`).innerText = Math.round(data.ping) + "ms";
-                        document.getElementById(`motd${i}`).innerText = data.motd.clean?.join(" ") || "无标语";
-                    } else {
-                        document.getElementById(`dot${i}`).className = "status-dot dot-offline";
-                        document.getElementById(`status${i}`).className = "status-offline";
-                        document.getElementById(`status${i}`).innerText = "离线";
-                    }
-                } catch(e) {}
-            }
-        }
+// 下滑动画
+const fadeElements = document.querySelectorAll('.fade-in');
+function checkVisible() {
+    fadeElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        if (rect.top < windowHeight - 80) el.classList.add('visible');
+    });
+}
+window.addEventListener('scroll', checkVisible);
+window.addEventListener('load', checkVisible);
 
-        window.onload = checkAllServer;
-    </script>
+// 底部点5次开后台
+let clickCount=0;
+document.getElementById("footerClick").onclick=()=>{
+    clickCount++;
+    if(clickCount>=5){
+        clickCount=0;
+        document.getElementById("adminPanel").style.display="flex";
+    }
+}
+
+// 管理员登录
+function adminLogin(){
+    let user=document.getElementById("adminUser").value;
+    let pwd=document.getElementById("adminPwd").value;
+    if(!admins[user] || admins[user].pwd !== pwd){
+        alert("账号或密码错误");
+        return;
+    }
+    currentRole = admins[user].role;
+    document.getElementById("adminContent").style.display="block";
+    
+    let d=loadData();
+    if(currentRole === "super"){
+        document.getElementById("superAdminArea").style.display="block";
+        document.getElementById("normalAdminArea").style.display="none";
+        document.getElementById("newTitle").value=d.webTitle;
+        document.getElementById("newDesc").value=d.webDesc;
+        document.getElementById("newS1name").value=d.s1name;
+        document.getElementById("newS1ip").value=d.s1ip;
+        document.getElementById("newS2name").value=d.s2name;
+        document.getElementById("newS2ip").value=d.s2ip;
+        document.getElementById("newS3name").value=d.s3name;
+        document.getElementById("newS3ip").value=d.s3ip;
+        document.getElementById("newS4name").value=d.s4name;
+        document.getElementById("newS4ip").value=d.s4ip;
+        document.getElementById("newS5name").value=d.s5name;
+        document.getElementById("newS5ip").value=d.s5ip;
+    }else{
+        document.getElementById("superAdminArea").style.display="none";
+        document.getElementById("normalAdminArea").style.display="block";
+        document.getElementById("newDescNormal").value=d.webDesc;
+    }
+}
+
+// 保存
+function saveAll(){
+    let d=loadData();
+    if(currentRole === "super"){
+        d.webTitle=document.getElementById("newTitle").value;
+        d.webDesc=document.getElementById("newDesc").value;
+        d.s1name=document.getElementById("newS1name").value;
+        d.s1ip=document.getElementById("newS1ip").value;
+        d.s2name=document.getElementById("newS2name").value;
+        d.s2ip=document.getElementById("newS2ip").value;
+        d.s3name=document.getElementById("newS3name").value;
+        d.s3ip=document.getElementById("newS3ip").value;
+        d.s4name=document.getElementById("newS4name").value;
+        d.s4ip=document.getElementById("newS4ip").value;
+        d.s5name=document.getElementById("newS5name").value;
+        d.s5ip=document.getElementById("newS5ip").value;
+    }else{
+        d.webDesc=document.getElementById("newDescNormal").value;
+    }
+    saveData(d);
+    render();
+    alert("保存成功！所有人已实时看见新内容");
+}
+
+// 查看反馈
+function showFeedbackAdmin(){
+    let d=loadData();
+    let list=document.getElementById("adminFeedbackList");
+    list.innerHTML="";
+    d.feedback.forEach(f=>{
+        let div=document.createElement("div");
+        div.className="glass p-3 mb-2 text-sm";
+        div.innerText = `${f.time} | ${f.email} | ${f.content}`;
+        list.appendChild(div);
+    });
+}
+</script>
 </body>
 </html>
