@@ -31,7 +31,7 @@
             0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}
         }
         .glass{
-            background: rgba(255,255,250.06);
+            background: rgba(255,255,255,0.06);
             backdrop-filter: blur(20px);
             border:1px solid rgba(147,112,255,0.15);
             box-shadow:0 8px 32px rgba(147,112,255,0.08);
@@ -56,9 +56,10 @@
 <!-- 导航 -->
 <nav class="glass fixed w-full top-0 z-50 py-3 px-6">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <!-- Logo 已添加 -->
         <div class="flex items-center gap-2">
-            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/beaac172b2c14611ace2284258ee2426.png~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=2026060420353008A5BCD7952983539C7D&rrcfp=dafada99&x-expires=2096800531&x-signature=NQYUUP%2BGS3%2BiSqKzy9eI%2F%2BJBsW0%3D" 
-                 alt="Logo" class="h-10 w-auto">
+            <img src="https://release-assets.githubusercontent.com/github-production-release-asset/1253988918/2701311c-23ef-4b0d-8911-3675e9aebd4d?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-06-04T13%3A08%3A40Z&rscd=attachment%3B+filename%3Dlogo2.png&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-06-04T12%3A08%3A33Z&ske=2026-06-04T13%3A08%3A40Z&sks=b&skv=2018-11-09&sig=TaK19mhlSq%2FFufxHkbO0sJ99RXymSD26e2VBgObhpG0%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4MDU3NTc0NCwibmJmIjoxNzgwNTc1NDQ0LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.eshLgZGDsoKy1XWSpQkg2yUTwtvhQoMUNaN3cYMGkYY&response-content-disposition=attachment%3B%20filename%3Dlogo2.png&response-content-type=application%2Foctet-stream" 
+                 alt="星界生存Logo" class="h-10 w-auto">
         </div>
         <div class="hidden md:flex gap-6">
             <a href="#home">首页</a>
@@ -78,35 +79,35 @@
     </div>
 </section>
 
-<!-- 5个服务器状态 -->
+<!-- 5个服务器状态（不显示IP） -->
 <section id="servers" class="py-20 px-6 fade-in">
     <div class="max-w-7xl mx-auto">
         <h2 class="text-3xl font-bold gradient-text text-center mb-10">服务器实时状态</h2>
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-3 gap-6" id="serverCards">
             <div class="glass p-6 rounded-2xl hover-float fade-in">
                 <h3 class="text-xl font-bold" id="s1name">大厅</h3>
-                <p class="mt-2 text-sm" id="s1player">在线人数：--/--</p>
-                <p class="mt-3" id="s1status">加载中...</p>
+                <p class="mt-2 text-sm" id="s1player">在线人数：加载中...</p>
+                <p class="mt-3" id="s1status">检测中...</p>
             </div>
             <div class="glass p-6 rounded-2xl hover-float fade-in">
                 <h3 class="text-xl font-bold" id="s2name">生存服1</h3>
-                <p class="mt-2 text-sm" id="s2player">加载中...</p>
-                <p class="mt-3" id="s2status">加载中...</p>
+                <p class="mt-2 text-sm" id="s2player">在线人数：加载中...</p>
+                <p class="mt-3" id="s2status">检测中...</p>
             </div>
             <div class="glass p-6 rounded-2xl hover-float fade-in">
                 <h3 class="text-xl font-bold" id="s3name">起床单挑版</h3>
-                <p class="mt-2 text-sm" id="s3player">在线人数：--/--</p>
-                <p class="mt-3" id="s3status">加载中...</p>
+                <p class="mt-2 text-sm" id="s3player">在线人数：加载中...</p>
+                <p class="mt-3" id="s3status">检测中...</p>
             </div>
             <div class="glass p-6 rounded-2xl hover-float fade-in">
                 <h3 class="text-xl font-bold" id="s4name">幸运支柱</h3>
-                <p class="mt-2 text-sm" id="s4player">加载中...</p>
-                <p class="mt-3" id="s4status">加载中...</p>
+                <p class="mt-2 text-sm" id="s4player">在线人数：加载中...</p>
+                <p class="mt-3" id="s4status">检测中...</p>
             </div>
             <div class="glass p-6 rounded-2xl hover-float fade-in">
                 <h3 class="text-xl font-bold" id="s5name">幸运支柱-空岛版</h3>
-                <p class="mt-2 text-sm" id="s5player">加载中...</p>
-                <p class="mt-3" id="s5status">加载中...</p>
+                <p class="mt-2 text-sm" id="s5player">在线人数：加载中...</p>
+                <p class="mt-3" id="s5status">检测中...</p>
             </div>
         </div>
     </div>
@@ -130,7 +131,7 @@
     <p class="text-gray-300">©2025 星界生存小游戏服务器 | 为好玩而开</p>
 </footer>
 
-<!-- 后台 -->
+<!-- 后台全屏 -->
 <div id="adminPanel" class="fixed inset-0 bg-black/95 z-50 hidden flex-col items-center justify-center p-6">
     <div class="glass p-8 rounded-2xl w-full max-w-md">
         <h2 class="text-2xl gradient-text mb-4">管理员登录</h2>
@@ -140,29 +141,37 @@
 
         <div id="adminContent" class="hidden">
             <div id="superAdminArea">
-                <h3 class="mb-3 gradient-text">官网设置</h3>
-                <input id="newTitle" class="w-full p-2 mb-2 rounded bg-black/30">
-                <input id="newDesc" class="w-full p-2 mb-2 rounded bg-black/30">
+                <h3 class="mb-3 gradient-text">修改官网信息</h3>
+                <input id="newTitle" class="w-full p-2 mb-2 rounded bg-black/30" placeholder="官网标题">
+                <input id="newDesc" class="w-full p-2 mb-2 rounded bg-black/30" placeholder="官网简介">
 
-                <h3 class="mt-3 gradient-text">大厅（手动设置）</h3>
-                <select id="s1stat" class="w-full p-2 mb-2 rounded bg-black/30 text-white">
-                    <option value="online">✅ 在线中</option>
-                    <option value="offline">❌ 离线</option>
-                </select>
+                <h3 class="mt-4 mb-2 gradient-text">服务器1</h3>
+                <input id="newS1name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS1ip" class="w-full p-2 mb-2 rounded bg-black/30">
 
-                <h3 class="mt-3 gradient-text">起床单挑版（手动设置）</h3>
-                <select id="s3stat" class="w-full p-2 mb-2 rounded bg-black/30 text-white">
-                    <option value="online">✅ 在线中</option>
-                    <option value="offline">❌ 离线</option>
-                </select>
+                <h3 class="mt-4 mb-2 gradient-text">服务器2</h3>
+                <input id="newS2name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS2ip" class="w-full p-2 mb-1 rounded bg-black/30">
+
+                <h3 class="mt-4 mb-2 gradient-text">服务器3</h3>
+                <input id="newS3name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS3ip" class="w-full p-2 mb-2 rounded bg-black/30">
+
+                <h3 class="mt-4 mb-2 gradient-text">服务器4</h3>
+                <input id="newS4name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS4ip" class="w-full p-2 mb-2 rounded bg-black/30">
+
+                <h3 class="mt-4 mb-2 gradient-text">服务器5</h3>
+                <input id="newS5name" class="w-full p-2 mb-1 rounded bg-black/30">
+                <input id="newS5ip" class="w-full p-2 mb-2 rounded bg-black/30">
             </div>
 
             <div id="normalAdminArea">
-                <h3 class="mb-3 gradient-text">修改简介</h3>
-                <input id="newDescNormal" class="w-full p-3 rounded bg-black/30">
+                <h3 class="mb-3 gradient-text">修改服务器简介</h3>
+                <input id="newDescNormal" class="w-full p-3 rounded bg-black/30 mb-4" placeholder="官网简介">
             </div>
 
-            <button onclick="saveAll()" class="w-full p-3 rounded-full bg-gradient-to-r from-main1 to-main2 mt-4">保存</button>
+            <button onclick="saveAll()" class="w-full p-3 rounded-full bg-gradient-to-r from-main1 to-main2 mt-4">保存全部</button>
             <button onclick="showFeedbackAdmin()" class="w-full p-3 mt-2 rounded-full glass">查看反馈</button>
             <div id="adminFeedbackList" class="mt-4 max-h-60 overflow-y-auto"></div>
         </div>
@@ -170,7 +179,7 @@
 </div>
 
 <script>
-// 管理员账号
+// 账号列表
 const admins = {
     "Mgour145AWA": { pwd: "20140724", role: "super" },
     "lhx145": { pwd: "bb070925", role: "normal" },
@@ -179,96 +188,137 @@ const admins = {
 
 let currentRole = "";
 
-// 数据
+// 本地数据
 function loadData(){
     return JSON.parse(localStorage.getItem("serverData") || `{
         "webTitle":"星界生存小游戏服务器",
         "webDesc":"为好玩而开，稳定、流畅、公平的小游戏服务器",
-        "s1stat":"online",
-        "s3stat":"online"
+        "s1name":"大厅","s1ip":"43.248.103.155:21699",
+        "s2name":"生存服1","s2ip":"x3.minekuai.cn:20033",
+        "s3name":"起床单挑版","s3ip":"43.248.103.155:10997",
+        "s4name":"幸运支柱","s4ip":"free-c2.tudouai.cn:11230",
+        "s5name":"幸运支柱-空岛版","s5ip":"free-c4.tudouai.cn:56015",
+        "feedback":[]
     }`);
 }
 function saveData(d){localStorage.setItem("serverData",JSON.stringify(d));}
 
-// 渲染
+// 渲染页面
 function render(){
     let d=loadData();
-    document.getElementById("webTitle").innerText = d.webTitle;
-    document.getElementById("webDesc").innerText = d.webDesc;
+    document.getElementById("webTitle").innerText=d.webTitle;
+    document.getElementById("webDesc").innerText=d.webDesc;
+    document.getElementById("s1name").innerText=d.s1name;
+    document.getElementById("s2name").innerText=d.s2name;
+    document.getElementById("s3name").innerText=d.s3name;
+    document.getElementById("s4name").innerText=d.s4name;
+    document.getElementById("s5name").innerText=d.s5name;
 
-    // 手动服
-    if(d.s1stat === "online"){
-        document.getElementById("s1status").innerHTML = '<span class="text-online">✅ 在线中</span>';
-    }else{
-        document.getElementById("s1status").innerHTML = '<span class="text-offline">❌ 离线</span>';
-    }
-    if(d.s3stat === "online"){
-        document.getElementById("s3status").innerHTML = '<span class="text-online">✅ 在线中</span>';
-    }else{
-        document.getElementById("s3status").innerHTML = '<span class="text-offline">❌ 离线</span>';
-    }
+    let fbList=document.getElementById("feedbackList");
+    fbList.innerHTML="";
+    d.feedback.forEach(f=>{
+        let item=document.createElement("div");
+        item.className="glass p-4 rounded-xl mb-3 fade-in";
+        item.innerHTML=`<p class="text-purpleBlue">${f.email}</p><p class="text-white">${f.content}</p><p class="text-xs text-gray-400">${f.time}</p>`;
+        fbList.appendChild(item);
+    });
 }
 render();
 
-// 自动检测（能检测的服）
-async function checkJava(ip, statId, playerId){
+// 提交反馈
+function sendFeedback(){
+    let email=document.getElementById("email").value;
+    let content=document.getElementById("content").value;
+    if(!email.endsWith("@qq.com")){alert("请输入有效的QQ邮箱");return;}
+    if(content.length<3){alert("反馈内容至少3个字");return;}
+    let d=loadData();
+    d.feedback.unshift({email,content,time:new Date().toLocaleString()});
+    saveData(d);
+    render();
+    document.getElementById("email").value="";
+    document.getElementById("content").value="";
+    alert("反馈成功，等待管理员审核与修复");
+}
+
+// 实时检测服务器状态
+async function checkServer(ip,idStatus,idPlayer){
     try{
-        let r = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-        let d = await r.json();
-        if(d.online){
-            document.getElementById(statId).innerHTML = '<span class="text-online">✅ 在线中</span>';
-            document.getElementById(playerId).innerText = `在线人数：${d.players.online}/${d.players.max}`;
+        if(!ip)return;
+        let res=await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+        let data=await res.json();
+        if(data.online){
+            document.getElementById(idStatus).innerHTML='<span class="text-online">✅ 在线中</span>';
+            document.getElementById(idPlayer).innerText=`在线人数：${data.players.online}/${data.players.max}`;
         }else{
-            document.getElementById(statId).innerHTML = '<span class="text-offline">❌ 离线</span>';
-            document.getElementById(playerId).innerText = "在线人数：0/0";
+            document.getElementById(idStatus).innerHTML='<span class="text-offline">❌ 离线</span>';
+            document.getElementById(idPlayer).innerText="在线人数：0/0";
         }
     }catch(e){
-        document.getElementById(statId).innerHTML = '<span class="text-offline">❌ 离线</span>';
+        document.getElementById(idStatus).innerHTML='<span class="text-offline">❌ 离线</span>';
+        document.getElementById(idPlayer).innerText="在线人数：0/0";
     }
 }
 
-// 自动检测能检测的服务器
-checkJava("x3.minekuai.cn:20033", "s2status", "s2player");
-checkJava("free-c2.tudouai.cn:11230", "s4status", "s4player");
-checkJava("free-c4.tudouai.cn:56015", "s5status", "s5player");
+function refreshAll(){
+    let d=loadData();
+    checkServer(d.s1ip,"s1status","s1player");
+    checkServer(d.s2ip,"s2status","s2player");
+    checkServer(d.s3ip,"s3status","s3player");
+    checkServer(d.s4ip,"s4status","s4player");
+    checkServer(d.s5ip,"s5status","s5player");
+}
+refreshAll();
+setInterval(refreshAll,3000);
 
-setInterval(()=>{
-    checkJava("x3.minekuai.cn:20033", "s2status", "s2player");
-    checkJava("free-c2.tudouai.cn:11230", "s4status", "s4player");
-    checkJava("free-c4.tudouai.cn:56015", "s5status", "s5player");
-}, 5000);
+// 下滑动画
+const fadeElements = document.querySelectorAll('.fade-in');
+function checkVisible() {
+    fadeElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        if (rect.top < windowHeight - 80) el.classList.add('visible');
+    });
+}
+window.addEventListener('scroll', checkVisible);
+window.addEventListener('load', checkVisible);
 
-// 反馈
-function sendFeedback(){
-    let e = document.getElementById("email").value;
-    let c = document.getElementById("content").value;
-    if(!e.endsWith("@qq.com")){alert("请输入有效QQ邮箱");return;}
-    if(c.length<3){alert("反馈至少3个字");return;}
-    alert("反馈成功，等待管理员审核");
+// 底部点5次开后台
+let clickCount=0;
+document.getElementById("footerClick").onclick=()=>{
+    clickCount++;
+    if(clickCount>=5){
+        clickCount=0;
+        document.getElementById("adminPanel").style.display="flex";
+    }
 }
 
-// 滚动动画
-const fade = document.querySelectorAll('.fade-in');
-setInterval(()=>{fade.forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-80)el.classList.add('visible');})},300);
-
-// 后台
-let click=0;
-document.getElementById("footerClick").onclick=()=>{if(++click>=5)document.getElementById("adminPanel").style.display="flex";};
-
+// 管理员登录
 function adminLogin(){
-    let u = document.getElementById("adminUser").value;
-    let p = document.getElementById("adminPwd").value;
-    if(!admins[u] || admins[u].pwd!==p){alert("账号或密码错误");return;}
-    currentRole = admins[u].role;
+    let user=document.getElementById("adminUser").value;
+    let pwd=document.getElementById("adminPwd").value;
+    if(!admins[user] || admins[user].pwd !== pwd){
+        alert("账号或密码错误");
+        return;
+    }
+    currentRole = admins[user].role;
     document.getElementById("adminContent").style.display="block";
+    
     let d=loadData();
-    if(currentRole==="super"){
+    if(currentRole === "super"){
         document.getElementById("superAdminArea").style.display="block";
         document.getElementById("normalAdminArea").style.display="none";
         document.getElementById("newTitle").value=d.webTitle;
         document.getElementById("newDesc").value=d.webDesc;
-        document.getElementById("s1stat").value=d.s1stat;
-        document.getElementById("s3stat").value=d.s3stat;
+        document.getElementById("newS1name").value=d.s1name;
+        document.getElementById("newS1ip").value=d.s1ip;
+        document.getElementById("newS2name").value=d.s2name;
+        document.getElementById("newS2ip").value=d.s2ip;
+        document.getElementById("newS3name").value=d.s3name;
+        document.getElementById("newS3ip").value=d.s3ip;
+        document.getElementById("newS4name").value=d.s4name;
+        document.getElementById("newS4ip").value=d.s4ip;
+        document.getElementById("newS5name").value=d.s5name;
+        document.getElementById("newS5ip").value=d.s5ip;
     }else{
         document.getElementById("superAdminArea").style.display="none";
         document.getElementById("normalAdminArea").style.display="block";
@@ -276,23 +326,41 @@ function adminLogin(){
     }
 }
 
+// 保存
 function saveAll(){
     let d=loadData();
-    if(currentRole==="super"){
+    if(currentRole === "super"){
         d.webTitle=document.getElementById("newTitle").value;
         d.webDesc=document.getElementById("newDesc").value;
-        d.s1stat=document.getElementById("s1stat").value;
-        d.s3stat=document.getElementById("s3stat").value;
+        d.s1name=document.getElementById("newS1name").value;
+        d.s1ip=document.getElementById("newS1ip").value;
+        d.s2name=document.getElementById("newS2name").value;
+        d.s2ip=document.getElementById("newS2ip").value;
+        d.s3name=document.getElementById("newS3name").value;
+        d.s3ip=document.getElementById("newS3ip").value;
+        d.s4name=document.getElementById("newS4name").value;
+        d.s4ip=document.getElementById("newS4ip").value;
+        d.s5name=document.getElementById("newS5name").value;
+        d.s5ip=document.getElementById("newS5ip").value;
     }else{
         d.webDesc=document.getElementById("newDescNormal").value;
     }
     saveData(d);
     render();
-    alert("保存成功！");
+    alert("保存成功！所有人已实时看见新内容");
 }
 
+// 查看反馈
 function showFeedbackAdmin(){
-    alert("反馈查看功能已启用");
+    let d=loadData();
+    let list=document.getElementById("adminFeedbackList");
+    list.innerHTML="";
+    d.feedback.forEach(f=>{
+        let div=document.createElement("div");
+        div.className="glass p-3 mb-2 text-sm";
+        div.innerText = `${f.time} | ${f.email} | ${f.content}`;
+        list.appendChild(div);
+    });
 }
 </script>
 </body>
