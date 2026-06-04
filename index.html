@@ -85,27 +85,27 @@
         <h2 class="text-3xl font-bold gradient-text text-center mb-10">服务器实时状态</h2>
         <div class="grid md:grid-cols-3 gap-6" id="serverCards">
             <div class="glass p-6 rounded-2xl hover-float fade-in">
-                <h3 class="text-xl font-bold" id="s1name">生存主服</h3>
+                <h3 class="text-xl font-bold" id="s1name">大厅</h3>
                 <p class="mt-2 text-sm" id="s1player">在线人数：加载中...</p>
                 <p class="mt-3" id="s1status">检测中...</p>
             </div>
             <div class="glass p-6 rounded-2xl hover-float fade-in">
-                <h3 class="text-xl font-bold" id="s2name">小游戏服</h3>
+                <h3 class="text-xl font-bold" id="s2name">生存服1</h3>
                 <p class="mt-2 text-sm" id="s2player">在线人数：加载中...</p>
                 <p class="mt-3" id="s2status">检测中...</p>
             </div>
             <div class="glass p-6 rounded-2xl hover-float fade-in">
-                <h3 class="text-xl font-bold" id="s3name">创造服</h3>
+                <h3 class="text-xl font-bold" id="s3name">起床单挑版</h3>
                 <p class="mt-2 text-sm" id="s3player">在线人数：加载中...</p>
                 <p class="mt-3" id="s3status">检测中...</p>
             </div>
             <div class="glass p-6 rounded-2xl hover-float fade-in">
-                <h3 class="text-xl font-bold" id="s4name">空岛服</h3>
+                <h3 class="text-xl font-bold" id="s4name">幸运支柱</h3>
                 <p class="mt-2 text-sm" id="s4player">在线人数：加载中...</p>
                 <p class="mt-3" id="s4status">检测中...</p>
             </div>
             <div class="glass p-6 rounded-2xl hover-float fade-in">
-                <h3 class="text-xl font-bold" id="s5name">RPG副本服</h3>
+                <h3 class="text-xl font-bold" id="s5name">幸运支柱-空岛版</h3>
                 <p class="mt-2 text-sm" id="s5player">在线人数：加载中...</p>
                 <p class="mt-3" id="s5status">检测中...</p>
             </div>
@@ -193,11 +193,11 @@ function loadData(){
     return JSON.parse(localStorage.getItem("serverData") || `{
         "webTitle":"星界生存小游戏服务器",
         "webDesc":"为好玩而开，稳定、流畅、公平的小游戏服务器",
-        "s1name":"生存主服","s1ip":"",
-        "s2name":"小游戏服","s2ip":"",
-        "s3name":"创造服","s3ip":"",
-        "s4name":"空岛服","s4ip":"",
-        "s5name":"RPG副本服","s5ip":"",
+        "s1name":"大厅","s1ip":"43.248.103.155:21699",
+        "s2name":"生存服1","s2ip":"x3.minekuai.cn:20033",
+        "s3name":"起床单挑版","s3ip":"43.248.103.155:10997",
+        "s4name":"幸运支柱","s4ip":"free-c2.tudouai.cn:11230",
+        "s5name":"幸运支柱-空岛版","s5ip":"free-c4.tudouai.cn:56015",
         "feedback":[]
     }`);
 }
