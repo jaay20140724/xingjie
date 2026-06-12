@@ -564,12 +564,12 @@ document.addEventListener('DOMContentLoaded', () => {
     //   基岩版需显式指定端口，如 "play.example.com:19132"
     // ============================================================
     var mcServers = [
-        { address: 'free-c3.tudouai.cn:20100', lobby: '大厅' },
-        { address: '202.189.6.188:20033', Survival: '生存服' },
-        { address: 'free-c2.tudouai.cn:11230', LuckyPillar: '幸运支柱' },
-        { address: 'free-c4.tudouai.cn:56015', LuckyPillarSkyblock: '空岛战争-幸运支柱版' },
-        { address: 'play.simpfun.cn:10997', BedWarsSoloVersion: '起床战争' },
-        { address: 'play.simpfun.cn:21699', HunterGame: '猎人游戏' }
+        { address: 'free-c3.tudouai.cn:20100', nickname: '大厅' },
+        { address: '202.189.6.188:20033', nickname: '生存服' },
+        { address: 'free-c2.tudouai.cn:11230', nickname: '幸运支柱' },
+        { address: 'free-c4.tudouai.cn:56015', nickname: '空岛战争-幸运支柱版' },
+        { address: 'play.simpfun.cn:10997', nickname: '起床战争' },
+        { address: 'play.simpfun.cn:21699', nickname: '猎人游戏' }
     ];
 
     /**
