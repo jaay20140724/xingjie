@@ -643,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // --- 在线 ---
-        var hostname = data.hostname || name;
+        var hostname = name;
         var motdHTML = (data.motd && data.motd.html) ? data.motd.html.join('<br>') : '';
         var motdClean = (data.motd && data.motd.clean) ? data.motd.clean.join(' ') : '--';
         var online = (data.players && data.players.online != null) ? data.players.online : 0;
